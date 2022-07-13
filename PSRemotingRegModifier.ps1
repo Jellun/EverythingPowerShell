@@ -1,5 +1,6 @@
 ﻿# This script modifies remote hosts registry keys and values to EnableActiveProbing
 # Can be modified to manipulate any registry key and value
+# Can be modified to run other remote PS commands
 # Note that Windows Remote Management (WS-Management) service needs to be running on the remote hosts
 # Run Enable-PSRemoting as admin on the remote hosts if needed
 # Run a command prompt as admin and enter the following command and confirm whether the IPv4Filter or IPv6Filter is configured to block the IP
@@ -10,11 +11,16 @@ $creds = Get-Credential
 
 #Region
 $computers = @(
-"xxxxxx01"
-"xxxxxx02"
-"xxxxxx03"
+"remotehost01"
+"remotehost02"
 )
- 
+
+# Remotely start WS-Management service
+$computers | Foreach-Object {
+	Write-Host "PSRemoting on $_"
+	Get-Service -ComputerName $_ -Name "WinRM" | Restart-Service -Force
+}
+
 $computers | Foreach-Object {
     $params = @{
         "ComputerName" = $_
