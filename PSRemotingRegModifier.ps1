@@ -2,7 +2,8 @@
 # Can be modified to manipulate any registry key and value
 # Can be modified to run other remote PS commands
 # Note that Windows Remote Management (WS-Management) service needs to be running on the remote hosts
-# Run Enable-PSRemoting as admin on the remote hosts if needed
+# Run PowerShell command, Enable-PSRemoting as admin on the remote hosts to enable WinRM and add firewall exceptions if needed
+# Run PowerShell command, winrm quickconfig as admin to verify it
 # Run a command prompt as admin and enter the following command and confirm whether the IPv4Filter or IPv6Filter is configured to block the IP
 # winrm get winrm/config
 # By Jun Ye - 13/07/2022
